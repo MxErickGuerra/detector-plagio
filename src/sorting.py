@@ -1,11 +1,11 @@
 """
 Módulo de ordenamiento y visualización de resultados.
-Incluye una implementación de Merge Sort para ordenar pares de documentos según similitud.
+Incluye la implementación de Merge Sort para ordenar los pares de documentos según su similitud.
 """
 
 def merge_sort(arr):
     """
-    Ordena una lista de diccionarios (con clave 'similarity') en orden descendente.
+    Ordena una lista de diccionarios (con la clave 'similarity') en orden descendente.
     """
     if len(arr) <= 1:
         return arr
@@ -30,7 +30,7 @@ def merge(left, right):
 
 def show_top_results(results, top_n):
     """
-    Muestra los top N pares de documentos con mayor similitud.
+    Muestra en consola los top N pares de documentos con mayor similitud.
     """
     print(f'\nTop {top_n} documentos más similares:')
     top_results = results[:top_n]

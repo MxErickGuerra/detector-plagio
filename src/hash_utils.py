@@ -10,13 +10,13 @@ def simple_hash(s):
     hash_val = 0
     for char in s:
         hash_val = (hash_val << 5) - hash_val + ord(char)
-        hash_val &= 0xFFFFFFFF  # Limita a 32 bits
+        hash_val &= 0xFFFFFFFF  # Limitar a 32 bits
     return hash_val
 
 def create_hash_tables(documents_data):
     """
-    Para cada documento, crea una tabla hash (conjunto) de sus n-gramas utilizando simple_hash.
-    Retorna un diccionario: { 'archivo.txt': set(hash de cada n-grama), ... }
+    Para cada documento, crea una tabla hash (un conjunto) de sus n-gramas usando simple_hash.
+    Retorna un diccionario: { 'archivo.txt': conjunto(hash de cada n-grama), ... }
     """
     hash_tables = {}
     for filename, data in documents_data.items():

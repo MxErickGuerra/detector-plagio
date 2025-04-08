@@ -8,10 +8,10 @@ import re
 
 def clean_text(text):
     """
-    Limpia el texto: lo pasa a minúsculas, elimina signos de puntuación y espacios extra.
+    Limpia el texto: convierte a minúsculas, elimina signos de puntuación y espacios extra.
     """
     text = text.lower()
-    text = re.sub(r'[^\w\s]', '', text)  # Quita la puntuación
+    text = re.sub(r'[^\w\s]', '', text)  # Elimina signos de puntuación
     text = re.sub(r'\s+', ' ', text).strip()  # Reemplaza múltiples espacios con uno solo y quita espacios extra
     return text
 
@@ -27,26 +27,16 @@ def generate_ngrams(text, n):
 
 def process_documents(folder_path, ngram_size):
     """
-    Procesa todos los documentos de texto en la carpeta especificada.
+    Procesa todos los documentos de texto (.txt) en la carpeta indicada.
     Para cada documento:
       - Lee el archivo.
       - Limpia el texto.
-      - Genera n-gramas.
-    
-    Retorna un diccionario con la siguiente estructura:
-      {
-         'archivo.txt': {
-             'original_text': <texto original>,
-             'cleaned_text': <texto limpio>,
-             'ngrams': [lista de n-gramas],
-             'ngram_count': <cantidad de n-gramas>
-         },
-         ...
-      }
+      - Genera los n-gramas.
+    Retorna un diccionario con datos para cada documento.
     """
     documents_data = {}
 
-    # Paso 1: Crear el folder si no existe
+    # Crear la carpeta de documentos si no existe
     try:
         os.makedirs(folder_path, exist_ok=True)
         print(f'Folder "{folder_path}" fue creado o ya existe.')
@@ -54,7 +44,7 @@ def process_documents(folder_path, ngram_size):
         print(f'Error al crear folder: {e}')
         return {}
 
-    # Listar archivos y filtrar los archivos .txt
+    # Listar archivos y filtrar los .txt
     try:
         files = os.listdir(folder_path)
     except Exception as e:
@@ -69,7 +59,7 @@ def process_documents(folder_path, ngram_size):
 
     print(f'Se encontraron {len(text_files)} archivos de texto.')
 
-    # Procesar cada archivo
+    # Procesar cada archivo de texto
     for file in text_files:
         file_path = os.path.join(folder_path, file)
         try:

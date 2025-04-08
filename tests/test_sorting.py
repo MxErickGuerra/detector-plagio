@@ -1,18 +1,18 @@
-import unittest
 import sys
 import os
 
-# Determine the project root (one level up from the tests folder)
+# Agregar la ruta raíz del proyecto (un nivel arriba de la carpeta tests) a sys.path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
+import unittest
 from src.sorting import merge_sort
 
 class TestSorting(unittest.TestCase):
 
     def test_merge_sort(self):
-        # Lista de diccionarios con la clave 'similarity'
+        # Prueba: ordenar una lista de diccionarios por la clave 'similarity' de forma descendente.
         data = [
             {"fileA": "a", "fileB": "b", "similarity": 0.4},
             {"fileA": "a", "fileB": "c", "similarity": 0.8},
