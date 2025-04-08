@@ -1,46 +1,62 @@
 import os
 import matplotlib.pyplot as plt
+import numpy as np
 
 def graph_similarity_results(results, top_n, save_path="resultados/similarity_results.png"):
     """
-    Grafica los resultados de similitud entre documentos y guarda la imagen en la carpeta 'resultados'.
-    
-    :param results: Lista ordenada de diccionarios con la estructura:
-                    { 'fileA': <nombre_archivo>, 'fileB': <nombre_archivo>, 'similarity': <valor> }
-    :param top_n: Número de pares de documentos a graficar.
-    :param save_path: Ruta del archivo donde se guardará el gráfico.
+    Grafica los resultados de similitud como una red de documentos conectados,
+    con líneas que muestran el porcentaje de similitud.
     """
-    # Seleccionar los top N resultados
     top_results = results[:top_n]
     
-    # Preparar las etiquetas y los valores (convertir la similitud a porcentaje)
-    labels = [f"{r['fileA']}\n<->\n{r['fileB']}" for r in top_results]
-    similarities = [r['similarity'] * 100 for r in top_results]
+    # Recopilar documentos únicos
+    unique_docs = set()
+    for res in top_results:
+        unique_docs.add(res['fileA'])
+        unique_docs.add(res['fileB'])
+    unique_docs = list(unique_docs)
     
-    # Configurar la figura y crear la gráfica de barras
-    plt.figure(figsize=(10, 6))
-    bars = plt.bar(labels, similarities, color='skyblue')
-    plt.xlabel('Pares de Documentos')
-    plt.ylabel('Similitud (%)')
-    plt.title(f'Top {top_n} Documentos Más Similares')
-    plt.xticks(rotation=45, ha='right')
-    plt.ylim(0, 100)
+    # Crear un layout circular para los nodos
+    n = len(unique_docs)
+    angles = np.linspace(0, 2*np.pi, n, endpoint=False)
+    x = np.cos(angles)
+    y = np.sin(angles)
+    pos = {doc: (xi, yi) for doc, xi, yi in zip(unique_docs, x, y)}
     
-    # Añadir el valor de similitud encima de cada barra
-    for bar in bars:
-        height = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, height, f'{height:.1f}%', ha='center', va='bottom')
+    plt.figure(figsize=(10, 10))
     
-    plt.tight_layout()
+    # Dibujar nodos
+    for doc, (xi, yi) in pos.items():
+        plt.plot(xi, yi, 'o', markersize=12, color='skyblue', alpha=0.6)
+        plt.text(xi, yi, doc, fontsize=9, ha='center', va='bottom', weight='bold')
     
-    # Crear la carpeta de resultados si no existe
+    # Dibujar conexiones con porcentajes
+    for res in top_results:
+        doc_a = res['fileA']
+        doc_b = res['fileB']
+        sim = res['similarity'] * 100
+        
+        x1, y1 = pos[doc_a]
+        x2, y2 = pos[doc_b]
+        
+        # Línea de conexión
+        plt.plot([x1, x2], [y1, y2], color='gray', linestyle='--', alpha=0.4)
+        
+        # Etiqueta de porcentaje
+        mid_x = (x1 + x2) / 2
+        mid_y = (y1 + y2) / 2
+        plt.text(mid_x, mid_y, f'{sim:.1f}%', 
+                 fontsize=9, ha='center', va='center',
+                 bbox=dict(facecolor='white', edgecolor='gray', boxstyle='round,pad=0.2'))
+    
+    plt.title(f'Conexiones de similitud entre documentos (Top {top_n})', pad=20)
+    plt.axis('off')
+    
+    # Asegurar carpeta de resultados
     output_folder = os.path.dirname(save_path)
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
     
-    # Guardar el gráfico
-    plt.savefig(save_path)
-    print(f"Gráfico guardado en: {save_path}")
-    
-    # Mostrar el gráfico
+    plt.savefig(save_path, bbox_inches='tight')
+    print(f"Gráfico de red guardado en: {save_path}")
     plt.show()
