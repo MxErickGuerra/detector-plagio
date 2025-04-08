@@ -1,6 +1,6 @@
 """
 Módulo de preprocesamiento de texto.
-Contiene funciones para limpiar el texto, generar n-gramas y procesar documentos.
+Contiene funciones para limpiar el texto, generar n-gramas y procesar ArchivosTXT_Videojuegos.
 """
 
 import os
@@ -27,7 +27,7 @@ def generate_ngrams(text, n):
 
 def process_documents(folder_path, ngram_size):
     """
-    Procesa todos los documentos de texto (.txt) en la carpeta indicada.
+    Procesa todos los ArchivosTXT_Videojuegos de texto (.txt) en la carpeta indicada.
     Para cada documento:
       - Lee el archivo.
       - Limpia el texto.
@@ -36,7 +36,7 @@ def process_documents(folder_path, ngram_size):
     """
     documents_data = {}
 
-    # Crear la carpeta de documentos si no existe
+    # Crear la carpeta de ArchivosTXT_Videojuegos si no existe
     try:
         os.makedirs(folder_path, exist_ok=True)
         print(f'Folder "{folder_path}" fue creado o ya existe.')

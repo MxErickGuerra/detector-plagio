@@ -1,5 +1,5 @@
 """
-Módulo de funciones hash y comparación de documentos.
+Módulo de funciones hash y comparación de ArchivosTXT_Videojuegos.
 Incluye una función hash personalizada y el cálculo de la similitud de Jaccard.
 """
 
@@ -36,7 +36,7 @@ def jaccard_similarity(set_a, set_b):
 
 def compare_documents(hash_tables):
     """
-    Compara cada par de documentos y calcula la similitud de Jaccard.
+    Compara cada par de ArchivosTXT_Videojuegos y calcula la similitud de Jaccard.
     Retorna una lista de diccionarios con el formato:
       { 'fileA': 'archivo1.txt', 'fileB': 'archivo2.txt', 'similarity': valor }
     """

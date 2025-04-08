@@ -1,0 +1,12 @@
+
+    Información sobre el videojuego: League of Legends
+    
+    - Género: (Ej: Aventura, RPG, FPS)
+    - Año de lanzamiento: (Ej: 2020)
+    - Desarrollador: (Ej: Mojang, Nintendo)
+    - Plataformas: (Ej: PC, PlayStation, Xbox)
+    - Puntuación en Metacritic: (Ej: 90/100)
+    
+    Descripción breve: 
+    (Aquí puedes escribir una descripción ficticia o datos reales del juego)
+    
