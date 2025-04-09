@@ -18,7 +18,7 @@ def main():
     
     # Parámetros de procesamiento
     ngram_size = 3  # Tamaño de n-gramas (2 para bi-gramas, 3 para tri-gramas, etc.)
-    top_n = 100       # Número de pares a mostrar
+    top_n = 50      # Número de pares a mostrar
     
     # Paso 1 y 2: Cargar, limpiar y tokenizar ArchivosTXT_Videojuegos en n-gramas
     documents_data = process_documents(folder_path, ngram_size)
